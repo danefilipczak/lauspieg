@@ -1,0 +1,8 @@
+{:deps
+ {rum/rum {:mvn/version "0.12.11"}
+  thheller/shadow-cljs {:mvn/version "2.16.10"} 
+  com.hyperfiddle/rcf {:mvn/version "20220926-202227"} 
+  danefilipczak/geilausp {:git/url "git@github.com:danefilipczak/geilausp.git" 
+                          :sha "81eb02c64d8eac3dcb78ed8027585c82b8b7fdff"}
+  danefilipczak/rational {:git/url "https://github.com/danefilipczak/rational.git"
+                          :sha "4f2fe225f223ddb92a4749167320a76baed088e9"}}}
