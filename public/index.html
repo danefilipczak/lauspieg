@@ -27,6 +27,57 @@ h1, h2, h3, h4, h5, h6 {
   box-sizing: content-box;
 }
 
+.left-container {
+  background-color: rgb(124, 71, 162);
+}
+
+.center-container {
+  background-color: rgb(241, 20, 241);
+  flex: 1;
+}
+
+.right-container {
+  background-color: rgb(235, 88, 25);
+}
+
+.bottom-container {
+  background-color: rgb(215, 242, 250);
+  height: 200px;
+}
+
+.top-container {
+  width: 100%;
+  display: flex;
+  flex: 1;
+}
+
+.column-container {
+  height: 100%;
+}
+
+.page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-container {
+  min-width: 250px;
+  max-width: 45%;
+}
+
+.container-separator {
+  cursor: col-resize;
+  width: 3px;
+  transition: background-color .3s;
+  transition-delay: .3s;
+}
+
+.container-separator:hover {
+  background-color: rgb(16, 201, 19); /* New background color on hover */
+}
+
   </style>
 <head>
   <meta charset="utf-8" />
