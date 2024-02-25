@@ -9,6 +9,10 @@
 
   <style>
 
+:root {
+  --highlight-color: #a2f857; 
+}
+
 body {font-family: 'EB Garamond', serif;
 font-size: 20px;
 margin: 0;
@@ -28,27 +32,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .left-container {
-  background-color: rgb(124, 71, 162);
+  /* background-color: rgb(124, 71, 162); */
 }
 
 .center-container {
-  background-color: rgb(241, 20, 241);
+  /* background-color: rgb(241, 20, 241); */
   flex: 1;
+  overflow: auto;
 }
 
 .right-container {
-  background-color: rgb(235, 88, 25);
+  /* background-color: rgb(235, 88, 25); */
 }
 
 .bottom-container {
-  background-color: rgb(215, 242, 250);
-  height: 200px;
+  /* background-color: rgb(215, 242, 250); */
+  height: 300px;
+
+  transition: height .1s;
 }
 
 .top-container {
   width: 100%;
   display: flex;
   flex: 1;
+  overflow:auto;
 }
 
 .column-container {
@@ -65,17 +73,28 @@ h1, h2, h3, h4, h5, h6 {
 .side-container {
   min-width: 250px;
   max-width: 45%;
+
+  transition: width .1s;
 }
 
 .container-separator {
-  cursor: col-resize;
-  width: 3px;
+  background-color: black;
   transition: background-color .3s;
   transition-delay: .3s;
 }
 
+.vertical-separator {
+  width: 3px;
+  cursor: col-resize;
+}
+
+.horizontal-separator {
+  height:3px;
+  cursor: row-resize;
+}
+
 .container-separator:hover {
-  background-color: rgb(16, 201, 19); /* New background color on hover */
+  background-color: var(--highlight-color);
 }
 
   </style>
