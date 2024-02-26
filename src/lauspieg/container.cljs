@@ -1,7 +1,11 @@
 (ns lauspieg.container
   (:require [rum.core :as rum]
-            [lauspieg.state :refer [**]]
+            [lauspieg.state :as state :refer [**]]
             [lauspieg.viewer]))
+
+(defn spy [v]
+  (.log js/console v)
+  v)
 
 (rum/defcs jared < rum/reactive (rum/local nil ::start)
   [s size update-size orientation container-tag separator-tag before?]
@@ -42,43 +46,83 @@
         :always (into [:<>]))))
   )
 
-;;todo - this is what I wanted to write
-#_(def *left-width
-    (state/register [::left-width] 200 :malli-schema :conform-fn))
-(def *left-width (rum/cursor-in ** [::left-width]))
+(def default-left-width 350)
+(def minimum-left-width 250)
+(def max-left-percentage 45)
+
+(let [[*left-width reset-left-width]
+      (state/register
+       ::left-width
+       default-left-width
+       nil
+       (state/derived-conformer
+        [state/*vw]
+        (fn [vw v]
+          (min (* (/ max-left-percentage 100) vw)
+               (max minimum-left-width v)))))]
+  (def *left-width *left-width)
+  (def reset-left-width reset-left-width))
 
 (rum/defc left < rum/reactive
   [] 
   (jared
-   (or (rum/react *left-width) 250) ;;todo remove me
-   (fn [width]
-     (reset! *left-width width))
+   (rum/react *left-width)
+   reset-left-width
    :vertical
    :div.left-container.column-container.side-container
    :div.container-separator.column-container.vertical-separator
    false))
 
-(def *right-width (rum/cursor-in ** [::right-width]))
+(def default-right-width 250)
+(def minimum-right-width 250)
+(def max-right-percentage 45)
+
+(let [[*right-width reset-right-width] 
+      (state/register
+       ::right-width
+       default-right-width
+       nil
+       (state/derived-conformer
+        [state/*vw]
+        (fn [vw v]
+          (min (* (/ max-right-percentage 100) vw)
+               (max minimum-right-width v)))))]
+  (def *right-width *right-width)
+  (def reset-right-width reset-right-width))
+
 
 (rum/defc right < rum/reactive
   [] 
   (jared
-   (or (rum/react *right-width) 250) ;;todo remove me
-   (fn [width]
-     (reset! *right-width width))
+   (rum/react *right-width) ;;todo remove me
+   reset-right-width
    :vertical
    :div.right-container.column-container.side-container
    :div.container-separator.column-container.vertical-separator
    true))
 
-(def *bottom-height (rum/cursor-in ** [::bottom-height]))
+
+(def default-bottom-height 250)
+(def max-bottom-percentage 45)
+(def minimum-bottom-height 300)
+(let [[*bottom-height reset-bottom-height]
+      (state/register
+       ::bottom-height
+       default-bottom-height
+       nil
+       (state/derived-conformer
+        [state/*vh]
+        (fn [vh v]
+          (min (* (/ max-bottom-percentage 100) vh)
+               (max minimum-bottom-height v)))))]
+  (def *bottom-height *bottom-height)
+  (def reset-bottom-height reset-bottom-height))
 
 (rum/defc bottom < rum/reactive
   []
   (jared
-   (or (rum/react *bottom-height) 250) ;;todo remove me
-   (fn [width]
-     (reset! *bottom-height width))
+   (rum/react *bottom-height)
+   reset-bottom-height
    :horizonal
    :div.bottom-container
    :div.container-separator.horizontal-separator
